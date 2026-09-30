@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { company, hasClientValue } from "@/lib/company";
 import { BrandLockup } from "@/components/Brand";
+import { SectionLink } from "@/components/SectionLink";
 
 export function Footer() {
   return (
@@ -8,15 +9,15 @@ export function Footer() {
       <div className="footer-marquee" aria-hidden="true"><span>AUTO USATE · GENOVA · AUTO USATE · GENOVA · AUTO USATE · GENOVA ·</span></div>
       <div className="container footer-grid">
         <div>
-          <Link href="/#top" className="footer-logo" aria-label="Auto Usate SRL, torna all'inizio"><BrandLockup /></Link>
+          <SectionLink section="top" className="footer-logo" aria-label="Auto Usate SRL, torna all'inizio"><BrandLockup /></SectionLink>
           <p className="footer-copy">Auto usate a Genova. Ricerca semplice, contatto diretto e disponibilità da verificare sul veicolo reale.</p>
         </div>
         <div>
           <p className="footer-label">Naviga</p>
-          <Link href="/#auto">Le auto</Link>
-          <Link href="/#come-funziona">Come funziona</Link>
-          <Link href="/#permuta">Permuta</Link>
-          <Link href="/#contatti">Contatti</Link>
+          <SectionLink section="auto">Le auto</SectionLink>
+          <SectionLink section="come-funziona">Come funziona</SectionLink>
+          <SectionLink section="permuta">Permuta</SectionLink>
+          <SectionLink section="contatti">Contatti</SectionLink>
         </div>
         <div>
           <p className="footer-label">Legale</p>

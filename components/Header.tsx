@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icons";
 import { BrandLockup } from "@/components/Brand";
+import { SectionLink } from "@/components/SectionLink";
 
 const nav = [
   ["#auto", "Le auto"],
@@ -42,9 +42,9 @@ export function Header() {
   return (
     <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
       <div className="site-header-inner">
-        <Link href="/#top" className="brand-lockup" aria-label="Auto Usate SRL, torna all'inizio">
+        <SectionLink section="top" className="brand-lockup" aria-label="Auto Usate SRL, torna all'inizio">
           <BrandLockup />
-        </Link>
+        </SectionLink>
 
         <nav className="desktop-nav" aria-label="Navigazione principale">
           {nav.map(([href, label]) => <a key={href} href={sectionHref(href)}>{label}</a>)}
