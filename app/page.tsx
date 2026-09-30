@@ -56,26 +56,27 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <section id="top" className="hero-section">
-          <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-watermark" aria-hidden="true">USATO</div>
           <div className="container hero-layout">
             <div className="hero-copy">
               <div className="hero-kicker"><span className="signal-dot"/>GENOVA · AUTO USATE</div>
-              <h1><span>Usato.</span><span className="hero-accent">Scelto con più criterio.</span></h1>
-              <p>Un modo più diretto per cercare la tua prossima auto: raccontaci cosa ti serve, chiedi cosa è disponibile e approfondisci senza perdere tempo.</p>
-              <div className="hero-actions">
-                <a className="button button-primary" href="#auto">Trova la tua auto <Icon name="arrow"/></a>
-                <a className="button button-ghost" href="#permuta">Hai un usato? <span>Permutalo</span></a>
+              <h1 className="hero-title">
+                <span className="hero-word"><span>Usato.</span></span>
+                <span className="hero-accent">Scelto con più criterio.</span>
+              </h1>
+              <div className="hero-lower">
+                <p>Dicci cosa cerchi. <span>Verifichiamo cosa è disponibile.</span></p>
+                <div className="hero-actions">
+                  <a className="button button-primary" href="#auto">Trova la tua auto <Icon name="arrow"/></a>
+                  <a className="button button-ghost" href="#permuta">Hai un usato? <span>Permutalo</span></a>
+                </div>
               </div>
             </div>
             <HeroCar />
-            <div className="hero-proof">
-              <div><strong>GENOVA</strong><span>Presenza locale</span></div>
-              <div><strong>DIRETTO</strong><span>Contatto senza giri</span></div>
-              <div><strong>REALE</strong><span>Disponibilità da verificare</span></div>
+            <div className="hero-rail">
+              <p><span>Genova</span><span>Contatto diretto</span><span>Disponibilità da verificare</span></p>
+              <a className="hero-rail-scroll" href="#auto">Scorri <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <div className="hero-scroll" aria-hidden="true"><span/>SCORRI</div>
         </section>
 
         <section id="auto" className="finder-section">
@@ -104,7 +105,6 @@ export default function Home() {
         </section>
 
         <section id="permuta" className="trade-section">
-          <div className="trade-glow" aria-hidden="true"/>
           <div className="container trade-layout">
             <div className="trade-copy" data-reveal>
               <p className="section-kicker">04 · IL TUO USATO</p>

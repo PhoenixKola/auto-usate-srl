@@ -73,71 +73,106 @@ button { color: inherit; }
 .button-ghost span { color: var(--accent-2); }
 .button-ghost:hover { border-color: rgba(255,91,50,.7); }
 
-/* Hero */
-.hero-section { min-height: 100svh; position: relative; overflow: hidden; display: flex; align-items: stretch; isolation: isolate; background: radial-gradient(ellipse 55% 60% at 10% 26%, #1a1b1e 0, rgba(13,14,16,0) 70%), var(--ink); }
-.hero-section::after { content: ""; position: absolute; inset: auto 0 0; height: 22%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,.38)); z-index: -1; }
-.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to right, black, transparent 48%); opacity: .65; animation: heroFade 1.4s ease both; }
-.hero-watermark { position: absolute; left: -2vw; bottom: -7vw; font-size: clamp(9rem, 26vw, 31rem); line-height: .75; font-weight: 950; letter-spacing: -.09em; color: rgba(242,238,230,.022); user-select: none; }
-.hero-layout { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); grid-template-areas: "copy stage" "proof stage"; align-content: center; min-height: 100svh; padding-top: 112px; padding-bottom: 62px; position: relative; }
-.hero-copy { grid-area: copy; position: relative; z-index: 5; padding-top: 1.4rem; }
-.hero-kicker { display: inline-flex; align-items: center; gap: .7rem; color: rgba(242,238,230,.66); font-size: .68rem; font-weight: 850; letter-spacing: .17em; margin-bottom: clamp(1.5rem, 3vw, 2.8rem); }
+/* Hero — layers: studio (z0) · "Usato." (z1) · car (z2) · italic line, copy, rail (z3) */
+.hero-section { position: relative; overflow: hidden; isolation: isolate; display: flex; min-height: 100svh; background: radial-gradient(ellipse 120% 95% at 62% 58%, #131416 0, #0d0e10 55%, #09090a 100%); }
+.hero-section::after { content: ""; position: absolute; inset: auto 0 0; height: 18%; z-index: -1; background: linear-gradient(to bottom, transparent, rgba(0,0,0,.35)); }
+.hero-layout { display: flex; flex-direction: column; min-height: 100svh; padding-top: 112px; }
+.hero-copy { flex: 1; display: flex; flex-direction: column; }
+.hero-kicker { position: relative; z-index: 3; display: inline-flex; align-items: center; gap: .7rem; align-self: flex-start; margin-bottom: clamp(1rem, 3svh, 2.2rem); color: rgba(242,238,230,.66); font-size: .68rem; font-weight: 850; letter-spacing: .17em; animation: heroFade .9s .15s both; }
 .signal-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 0 rgba(255,91,50,.45); animation: signalPulse 2.4s infinite; }
 @keyframes signalPulse { 50% { box-shadow: 0 0 0 8px rgba(255,91,50,0); } }
-.hero-copy h1 { margin: 0; font-size: clamp(4.3rem, 8.8vw, 9.2rem); line-height: .79; letter-spacing: -.08em; font-weight: 900; max-width: 820px; }
-.hero-copy h1 span { display: block; }
-.hero-accent { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; color: var(--accent); font-size: .73em; letter-spacing: -.06em; margin-top: .17em; }
-.hero-copy > p { max-width: 620px; margin: 2rem 0 0; color: rgba(242,238,230,.66); font-size: clamp(1rem, 1.45vw, 1.24rem); line-height: 1.62; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.1rem; }
-.hero-actions .button-primary { transition: transform .25s var(--ease), background .25s, box-shadow .35s var(--ease); }
+.hero-title { margin: 0; font-weight: 900; }
+.hero-word { position: relative; z-index: 1; display: block; overflow: hidden; margin: -.08em 0 0 -.04em; padding: .08em .1em 0 .04em; font-size: min(21vw, 36svh); line-height: .8; letter-spacing: -.085em; }
+.hero-word > span { display: block; animation: wordRise 1.15s .7s cubic-bezier(.19,1,.22,1) both; }
+@keyframes wordRise { from { transform: translate3d(0, 104%, 0); } }
+.hero-accent { position: relative; z-index: 3; display: block; width: max-content; max-width: 100%; margin: .16em 0 0 clamp(0rem, 8vw, 10rem); color: var(--accent); font-family: Georgia, "Times New Roman", serif; font-size: min(4.3vw, 7.4svh); font-style: italic; font-weight: 400; line-height: 1; letter-spacing: -.045em; animation: heroRise 1s 1.1s var(--ease) both; }
+.hero-lower { position: relative; z-index: 3; max-width: 380px; margin-top: clamp(1.4rem, 4svh, 2.8rem); }
+.hero-lower p { margin: 0; color: var(--paper); font-size: clamp(1.05rem, 1.3vw, 1.28rem); font-weight: 600; line-height: 1.45; letter-spacing: -.01em; animation: heroRise .9s 1.4s var(--ease) both; }
+.hero-lower p span { display: block; color: rgba(242,238,230,.55); font-weight: 400; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; animation: heroRise .9s 1.55s var(--ease) both; }
+.hero-actions .button { transition: transform .3s var(--ease), background .25s, border-color .25s, box-shadow .35s var(--ease); }
+.hero-actions .button:active { transform: translateY(0) scale(.97); transition-duration: .08s; }
 .hero-actions .button-primary:hover { box-shadow: 0 16px 38px -14px rgba(255,91,50,.75); }
-.hero-proof { grid-area: proof; align-self: start; position: relative; z-index: 5; display: flex; flex-wrap: wrap; gap: 2rem; margin-top: clamp(2.4rem, 5vw, 4.8rem); padding-top: 1.5rem; border-top: 1px solid var(--line); max-width: 670px; }
-.hero-proof div { display: flex; flex-direction: column; gap: .3rem; }
-.hero-proof strong { font-size: .7rem; letter-spacing: .14em; color: var(--paper); }
-.hero-proof span { font-size: .76rem; color: rgba(242,238,230,.43); }
-
-/* Entrance: glow resolves, car arrives, light sweep, headlight; copy finishes last. */
-.hero-kicker, .hero-copy h1 > span, .hero-copy > p, .hero-actions, .hero-proof { animation: heroRise .95s var(--ease) both; }
-.hero-kicker { animation-delay: .15s; }
-.hero-copy h1 > span:first-child { animation-delay: .3s; }
-.hero-copy h1 > span:last-child { animation-delay: .45s; }
-.hero-copy > p { animation-delay: 1s; }
-.hero-actions { animation-delay: 1.2s; }
-.hero-proof { animation-delay: 1.4s; }
+.hero-actions .button-ghost { background: rgba(13,14,16,.55); backdrop-filter: blur(8px); }
+.hero-actions .button-ghost:hover { background: rgba(255,91,50,.08); }
+.hero-rail { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding: 1rem 0 1.15rem; border-top: 1px solid var(--line); color: rgba(242,238,230,.46); font-size: .62rem; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; animation: heroFade 1s 1.9s both; }
+.hero-rail::before { content: ""; position: absolute; top: -1px; left: 0; width: 7rem; height: 1px; background: var(--accent); transform-origin: left; animation: railDraw 1s 2s var(--ease) both; }
+@keyframes railDraw { from { transform: scaleX(0); } }
+.hero-rail p { display: flex; flex-wrap: wrap; row-gap: .35rem; margin: 0; }
+.hero-rail p span:first-child { color: var(--paper); }
+.hero-rail p span + span::before { content: "·"; margin: 0 .95em; color: var(--accent); }
+.hero-rail-scroll { display: inline-flex; align-items: center; gap: .65rem; min-height: 44px; color: rgba(242,238,230,.62); transition: color .2s; }
+.hero-rail-scroll span { display: inline-block; font-size: .9rem; letter-spacing: 0; transition: transform .3s var(--ease); }
+.hero-rail-scroll:hover, .hero-rail-scroll:focus-visible { color: var(--paper); }
+.hero-rail-scroll:hover span, .hero-rail-scroll:focus-visible span { transform: translateY(3px); }
 @keyframes heroRise { from { opacity: 0; transform: translate3d(0, 26px, 0); } }
 @keyframes heroFade { from { opacity: 0; } }
 
-/* Vehicle stage. The photo's black point matches --ink, so `lighten` lets ambient light sit behind the car without a visible image box. */
-.hero-stage { grid-area: stage; align-self: center; position: relative; width: 112%; margin-left: -5%; aspect-ratio: 2000 / 856; --px: 0; --py: 0; }
+/* Stage: the studio lives around the car so it tracks it at every breakpoint. */
+.hero-stage { position: absolute; right: max(1.5vw, calc((100vw - var(--max)) / 2 - 3vw)); bottom: calc(4.4rem + 4svh); width: min(72vw, 128svh, 1180px); aspect-ratio: 2400 / 973; --px: 0; --py: 0; --sy: 0; }
 .hero-stage > div { position: absolute; }
-.hero-stage-beam { left: 8%; right: 8%; top: -60%; height: 115%; background: radial-gradient(ellipse 30% 95% at 52% 0, rgba(242,238,230,.08), rgba(242,238,230,.025) 50%, transparent 76%); mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent); animation: heroFade 1.8s .1s ease both; }
-.hero-stage-glow { inset: -20% -4% 20% 6%; background: radial-gradient(ellipse 44% 36% at 54% 34%, rgba(255,91,50,.09), rgba(255,91,50,.025) 48%, transparent 72%); transform: translate3d(calc(var(--px) * 26px), calc(var(--py) * 14px), 0); transition: transform 1.4s var(--ease); animation: heroFade 1.6s ease both, glowBreath 9s 2.4s ease-in-out infinite alternate; }
-@keyframes glowBreath { to { opacity: .72; } }
-.hero-stage-floor { left: -4%; width: 13%; top: 72.5%; height: 1px; }
-.hero-stage-floor span { display: block; height: 100%; background: linear-gradient(90deg, transparent, rgba(242,238,230,.12) 40%, rgba(255,91,50,.8) 88%, transparent); transform: scaleX(0); transform-origin: 100% 50%; animation: floorDraw 1.5s 1.1s var(--ease) forwards; }
+.hero-env-wall { z-index: 0; inset: -75% -30% -30% -48%; background: radial-gradient(ellipse 46% 44% at 57% 52%, rgba(242,238,230,.1), rgba(242,238,230,.035) 45%, transparent 72%); transform: translate3d(calc(var(--px) * 22px), calc(var(--py) * 12px), 0); transition: transform 1.6s var(--ease); animation: heroFade 1.6s both; }
+.hero-env-arc { z-index: 0; left: 8%; right: 2%; top: -34%; height: 52%; border-radius: 50%; border-top: 1.5px solid rgba(242,238,230,.2); mask-image: linear-gradient(90deg, transparent, #000 28%, #000 72%, transparent); animation: arcIn 1.6s .05s var(--ease) both; }
+@keyframes arcIn { from { opacity: 0; transform: scaleX(.86); } }
+.hero-env-beam { z-index: 0; left: 10%; right: 4%; top: -60%; height: 128%; background: radial-gradient(ellipse 36% 100% at 52% 0, rgba(242,238,230,.075), rgba(242,238,230,.02) 55%, transparent 80%); mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 50%, transparent 95%); animation: heroFade 1.8s .1s both, beamBreath 10s 2.4s ease-in-out infinite alternate; }
+@keyframes beamBreath { to { opacity: .7; } }
+.hero-env-floor { z-index: 0; left: -40%; right: -30%; top: 69%; height: 55%; background: linear-gradient(to bottom, rgba(242,238,230,.045), transparent 75%); mask-image: radial-gradient(ellipse 52% 100% at 56% 0, #000 25%, transparent 72%); animation: heroFade 1.4s .3s both; }
+.hero-env-floor span { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(242,238,230,.14) 28%, rgba(242,238,230,.24) 56%, rgba(242,238,230,.1) 82%, transparent); transform: scaleX(0); transform-origin: 56% 50%; animation: floorDraw 1.6s .4s var(--ease) forwards; }
 @keyframes floorDraw { to { transform: scaleX(1); } }
-.hero-stage-floor::after { content: ""; position: absolute; left: 80%; width: 150%; top: -40px; height: 120px; background: radial-gradient(ellipse 50% 22% at 50% 50%, rgba(255,120,80,.07), transparent 70%); animation: heroFade 1.4s 1.5s ease both; }
-.hero-car-parallax { inset: 0; mix-blend-mode: lighten; transform: translate3d(calc(var(--px) * -14px), calc(var(--py) * -8px), 0); transition: transform 1.4s var(--ease); }
-.hero-car-drift, .hero-car-enter { position: absolute; inset: 0; }
-.hero-car-drift { animation: carDrift 18s 2.8s ease-in-out infinite alternate; }
-@keyframes carDrift { to { transform: translate3d(-1%, -.25%, 0) scale(1.01); } }
-.hero-car-enter { animation: carReveal 1.7s .35s var(--ease) both; }
-@keyframes carReveal { from { opacity: 0; transform: translate3d(7%, 0, 0) scale(.985); } }
+.hero-env-floor::before { content: ""; position: absolute; left: 25%; right: 19%; top: -10px; height: 22px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(0,0,0,.75), transparent 70%); }
+.hero-car-scroll { z-index: 2; inset: 0; transform: translate3d(0, calc(var(--sy) * -7%), 0) scale(calc(1 + var(--sy) * .03)); }
+.hero-car-parallax, .hero-car-drift, .hero-car-enter { position: absolute; inset: 0; }
+.hero-car-parallax { transform: translate3d(calc(var(--px) * -16px), calc(var(--py) * -8px), 0); transition: transform 1.4s var(--ease); }
+.hero-car-drift { animation: carDrift 18s 3s ease-in-out infinite alternate; }
+@keyframes carDrift { to { transform: translate3d(-.8%, -.25%, 0) scale(1.008); } }
+.hero-car-enter { animation: carReveal 1.8s .25s var(--ease) both; }
+@keyframes carReveal { from { opacity: 0; transform: translate3d(5%, 0, 0) scale(.975); } }
 .hero-car-enter picture, .hero-car-img { display: block; width: 100%; height: 100%; }
 .hero-car-sweep { display: none; position: absolute; inset: 0; overflow: hidden; mix-blend-mode: screen; }
 @supports (mask-mode: luminance) {
-  .hero-car-sweep { display: block; mask-image: url("/hero/showroom-car-1200.webp"); mask-size: 100% 100%; mask-mode: luminance; }
+  .hero-car-sweep { display: block; mask-image: url("/hero/car-cut-900.webp"); mask-size: 100% 100%; mask-mode: luminance; }
 }
-.hero-car-sweep span { position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(260deg, transparent 18%, rgba(255,120,70,.45) 42%, rgba(255,240,225,.95) 52%, rgba(255,150,100,.5) 62%, transparent 82%); opacity: 0; animation: carSweep 1.45s 1.25s cubic-bezier(.45,.05,.2,1) forwards; }
+.hero-car-sweep span { position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(260deg, transparent 18%, rgba(255,120,70,.4) 42%, rgba(255,240,225,.95) 52%, rgba(255,150,100,.45) 62%, transparent 82%); opacity: 0; animation: carSweep 1.5s 1.05s cubic-bezier(.45,.05,.2,1) forwards; }
 @keyframes carSweep { 0% { transform: translate3d(260%, 0, 0); opacity: 0; } 12%, 82% { opacity: 1; } 100% { transform: translate3d(-110%, 0, 0); opacity: 0; } }
 .hero-car-headlight, .hero-car-taillight { position: absolute; translate: -50% -50%; mix-blend-mode: screen; opacity: 0; }
-.hero-car-headlight { left: 9.2%; top: 44.5%; width: 18%; aspect-ratio: 3 / 1; background: radial-gradient(ellipse 42% 42% at 50% 50%, rgba(255,246,235,.9), rgba(255,170,120,.4) 22%, rgba(255,91,50,.1) 50%, transparent 72%); animation: lightOn 1s 2.3s ease-out forwards; }
-.hero-car-headlight span { position: absolute; left: -55%; right: -25%; top: 47%; height: 6%; background: linear-gradient(90deg, transparent, rgba(255,190,160,.45) 45%, rgba(255,250,242,.9) 58%, rgba(255,190,160,.35) 70%, transparent); animation: flareBreath 6s 3.4s ease-in-out infinite alternate; }
-.hero-car-taillight { left: 92.4%; top: 35.5%; width: 7%; aspect-ratio: 2 / 1; background: radial-gradient(ellipse 45% 45% at 50% 50%, rgba(255,70,45,.55), rgba(255,50,30,.12) 50%, transparent 72%); animation: lightOn 1s 2.05s ease-out forwards; }
+.hero-car-headlight { left: 5.8%; top: 36.8%; width: 16%; aspect-ratio: 3 / 1; background: radial-gradient(ellipse 42% 42% at 50% 50%, rgba(255,246,235,.9), rgba(255,170,120,.4) 22%, rgba(255,91,50,.1) 50%, transparent 72%); animation: lightOn 1s 2.1s ease-out forwards; }
+.hero-car-headlight span { position: absolute; left: -18%; right: -25%; top: 47%; height: 6%; background: linear-gradient(90deg, transparent, rgba(255,190,160,.45) 45%, rgba(255,250,242,.9) 58%, rgba(255,190,160,.35) 70%, transparent); animation: flareBreath 6s 3.2s ease-in-out infinite alternate; }
+.hero-car-taillight { left: 95.6%; top: 26.6%; width: 6%; aspect-ratio: 2 / 1; background: radial-gradient(ellipse 45% 45% at 50% 50%, rgba(255,70,45,.55), rgba(255,50,30,.12) 50%, transparent 72%); animation: lightOn 1s 1.9s ease-out forwards; }
 @keyframes lightOn { 0% { opacity: 0; } 35% { opacity: 1; } 50% { opacity: .65; } 100% { opacity: 1; } }
 @keyframes flareBreath { to { opacity: .55; } }
-.hero-scroll { position: absolute; bottom: 2rem; right: var(--pad); display: flex; align-items: center; gap: .75rem; color: rgba(242,238,230,.32); font-size: .57rem; font-weight: 900; letter-spacing: .22em; writing-mode: vertical-rl; }
-.hero-scroll span { display: block; width: 1px; height: 54px; background: linear-gradient(var(--accent), transparent); animation: scrollLine 1.8s ease-in-out infinite; }
-@keyframes scrollLine { 50% { transform: scaleY(.55); transform-origin: top; } }
+
+/* Tablet: whole car gets its own full-bleed stage under the CTAs. */
+@media (max-width: 1120px) {
+  .hero-layout { min-height: 0; padding-top: 124px; }
+  .hero-copy { flex: none; }
+  .hero-word { font-size: min(24vw, 15rem); }
+  .hero-accent { margin-left: 0; font-size: min(6.6vw, 3.6rem); }
+  .hero-lower { max-width: 540px; }
+  .hero-stage { position: relative; right: auto; bottom: auto; width: min(104vw, 1100px); margin: clamp(3.5rem, 11vw, 6rem) 0 -6% calc(-2vw - var(--pad)); }
+  .hero-env-arc { display: none; }
+  .hero-env-beam { top: -34%; height: 104%; }
+  .hero-env-wall { inset: -40% -10% -20% -10%; }
+  .hero-rail { margin-top: 0; }
+}
+
+/* Phone: front three-quarter close-up with a deliberate rear bleed. */
+@media (max-width: 600px) {
+  .hero-layout { padding-top: 104px; }
+  .hero-kicker { margin-bottom: 1.3rem; }
+  .hero-word { font-size: 29vw; }
+  .hero-accent { font-size: 8.6vw; width: auto; }
+  .hero-lower p { font-size: 1.02rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-stage { width: 172vw; margin: 3.25rem 0 -4% calc(4vw - var(--pad)); }
+  .hero-car-img { mask-image: linear-gradient(to bottom, #000 64%, transparent 88%); }
+  .hero-env-floor { left: -5%; right: 20%; }
+  .hero-rail { font-size: .56rem; letter-spacing: .14em; }
+  .hero-rail p { gap: .45rem 1.1rem; }
+  .hero-rail p span + span::before { content: none; }
+  .hero-rail p span::before { content: ""; display: inline-block; width: 4px; height: 4px; margin-right: .55em; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+  .hero-rail-scroll { display: none; }
+}
+
 
 /* Finder */
 .finder-section { background: var(--paper); color: var(--ink); padding: clamp(6rem, 11vw, 10.5rem) 0; position: relative; }
@@ -171,7 +206,6 @@ button { color: inherit; }
 
 /* Il tipo giusto */
 .category-section { position: relative; background: #17181b; padding: clamp(6rem, 11vw, 10rem) 0; overflow: hidden; }
-.category-section::before { content: ""; position: absolute; width: 56vw; height: 56vw; left: -22vw; top: -16vw; background: radial-gradient(circle, rgba(255,91,50,.07), transparent 62%); pointer-events: none; }
 .types-layout { position: relative; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2.5rem, 5vw, 6.5rem) clamp(2.5rem, 6vw, 7rem); align-items: start; }
 .types-intro { position: sticky; top: 118px; }
 .types-intro h2 { margin: 0; font-size: clamp(3.2rem, 5.4vw, 6rem); line-height: .9; letter-spacing: -.065em; font-weight: 850; }
@@ -309,7 +343,6 @@ button { color: inherit; }
 
 /* Trade in */
 .trade-section { position: relative; padding: clamp(6.5rem, 12vw, 11rem) 0; background: #101113; overflow: hidden; }
-.trade-glow { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; left: -25vw; top: -15vw; background: radial-gradient(circle, rgba(255,91,50,.12), transparent 65%); filter: blur(30px); }
 .trade-layout { position: relative; display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(3rem, 8vw, 9rem); align-items: center; }
 .trade-copy h2 { font-size: clamp(4rem, 7vw, 7.3rem); }
 .trade-copy > p:not(.section-kicker) { color: rgba(242,238,230,.57); line-height: 1.7; max-width: 590px; margin: 2rem 0 0; }
@@ -448,7 +481,7 @@ button { color: inherit; }
 
 /* Legal */
 .legal-page { background: var(--paper); color: var(--ink); min-height: 80vh; }
-.legal-hero { position: relative; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse 45% 70% at 88% 35%, rgba(255,91,50,.08), transparent 70%), var(--ink); color: var(--paper); padding: 150px 0 clamp(3.5rem, 6vw, 5rem); }
+.legal-hero { position: relative; overflow: hidden; isolation: isolate; background: var(--ink); color: var(--paper); padding: 150px 0 clamp(3.5rem, 6vw, 5rem); }
 .legal-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
 .legal-hero-grid { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to left, black, transparent 62%); opacity: .6; animation: heroFade 1.2s ease both; }
 .legal-hero-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(290px, .6fr); gap: clamp(2.5rem, 6vw, 6.5rem); align-items: end; }
@@ -527,16 +560,6 @@ button { color: inherit; }
   .desktop-nav { display: none; }
   .site-header-inner { grid-template-columns: 1fr auto auto; }
   .mobile-menu-button { display: block; }
-  .hero-section { min-height: 0; }
-  .hero-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "stage" "proof"; align-content: start; min-height: 0; padding-top: 128px; padding-bottom: 3.5rem; }
-  .hero-copy { max-width: 800px; }
-  .hero-copy > p { max-width: 540px; }
-  .hero-grid { mask-image: linear-gradient(to bottom, black, transparent 60%); }
-  /* Stage gets its own row: car anchored front-left, rear bleeding off the right edge on purpose. */
-  .hero-stage { width: min(108vw, 980px); margin: clamp(1.25rem, 4vw, 2.5rem) 0 -10% calc(2vw - var(--pad)); }
-  .hero-car-img { mask-image: linear-gradient(to bottom, #000 74%, transparent 90%); }
-  .hero-stage-floor { left: -10%; width: 18%; }
-  .hero-proof { margin-top: 0; }
   .finder-row { grid-template-columns: 1fr; }
   .finder-question { min-height: 0; border-right: 0; border-bottom: 1px solid #d4cec4; }
 }
@@ -548,15 +571,6 @@ button { color: inherit; }
   .site-header .brand-wordmark { display: none; }
   .header-cta { display: none; }
   .site-header-inner { grid-template-columns: 1fr auto; }
-  .hero-layout { padding-top: 106px; padding-bottom: 2.5rem; }
-  .hero-copy { padding-top: 1.5rem; }
-  .hero-copy h1 { font-size: clamp(4rem, 18vw, 7rem); }
-  .hero-accent { font-size: .68em; line-height: .95; }
-  .hero-copy > p { font-size: .98rem; max-width: 92%; }
-  .hero-actions { flex-direction: column; align-items: stretch; max-width: 360px; }
-  .hero-proof { gap: 1.2rem; }
-  .hero-proof div { flex: 1 1 25%; }
-  .hero-scroll { display: none; }
   .split-heading, .process-heading, .trade-layout, .contact-layout, .standalone-contact-grid { grid-template-columns: 1fr; }
   .split-heading > p { margin-top: 1.5rem; }
   .section-heading h2, .trade-copy h2, .contact-copy h2 { font-size: clamp(3.25rem, 15vw, 5.4rem); }
@@ -588,9 +602,6 @@ button { color: inherit; }
 }
 
 @media (max-width: 520px) {
-  .hero-kicker { margin-bottom: 1.6rem; }
-  .hero-stage { width: 124vw; margin-top: 1.75rem; }
-  .hero-proof span { font-size: .66rem; }
   .finder-result { align-items: stretch; flex-direction: column; }
   .finder-result button { margin-left: 0; justify-content: space-between; }
   .trade-fields { grid-template-columns: 1fr; }
@@ -604,7 +615,7 @@ button { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-  .hero-car-drift, .process-rail-scan { animation: none !important; }
+  .hero-car-drift, .hero-env-beam, .process-rail-scan { animation: none !important; }
   .finder-status-dot::after { animation: none !important; opacity: 0; }
   .process-rail-scan { opacity: 0; }
 }
