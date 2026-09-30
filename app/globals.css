@@ -110,7 +110,7 @@ button { color: inherit; }
 .hero-stage { grid-area: stage; align-self: center; position: relative; width: 112%; margin-left: -5%; aspect-ratio: 2000 / 856; --px: 0; --py: 0; }
 .hero-stage > div { position: absolute; }
 .hero-stage-beam { left: 8%; right: 8%; top: -60%; height: 115%; background: radial-gradient(ellipse 30% 95% at 52% 0, rgba(242,238,230,.08), rgba(242,238,230,.025) 50%, transparent 76%); mask-image: linear-gradient(to bottom, transparent, #000 38%, #000 62%, transparent); animation: heroFade 1.8s .1s ease both; }
-.hero-stage-glow { inset: -20% -4% 20% 6%; background: radial-gradient(ellipse 44% 36% at 54% 34%, rgba(255,91,50,.22), rgba(255,91,50,.05) 48%, transparent 74%); transform: translate3d(calc(var(--px) * 26px), calc(var(--py) * 14px), 0); transition: transform 1.4s var(--ease); animation: heroFade 1.6s ease both, glowBreath 9s 2.4s ease-in-out infinite alternate; }
+.hero-stage-glow { inset: -20% -4% 20% 6%; background: radial-gradient(ellipse 44% 36% at 54% 34%, rgba(255,91,50,.3), rgba(255,91,50,.07) 48%, transparent 74%); transform: translate3d(calc(var(--px) * 26px), calc(var(--py) * 14px), 0); transition: transform 1.4s var(--ease); animation: heroFade 1.6s ease both, glowBreath 9s 2.4s ease-in-out infinite alternate; }
 @keyframes glowBreath { to { opacity: .72; } }
 .hero-stage-floor { left: -4%; width: 13%; top: 72.5%; height: 1px; }
 .hero-stage-floor span { display: block; height: 100%; background: linear-gradient(90deg, transparent, rgba(242,238,230,.12) 40%, rgba(255,91,50,.8) 88%, transparent); transform: scaleX(0); transform-origin: 100% 50%; animation: floorDraw 1.5s 1.1s var(--ease) forwards; }
@@ -388,8 +388,8 @@ button { color: inherit; }
 
 
 /* Contact */
-.contact-section { position: relative; overflow: hidden; background: var(--ink); padding: clamp(6rem, 10vw, 9rem) 0 clamp(7rem, 12vw, 11rem); }
-.contact-ticker { position: absolute; top: -1.2rem; left: 0; white-space: nowrap; font-size: clamp(5rem, 10vw, 11rem); font-weight: 950; letter-spacing: -.07em; color: rgba(242,238,230,.025); animation: ticker 28s linear infinite; }
+.contact-section { position: relative; overflow: hidden; background: var(--ink); padding: clamp(7.5rem, 15vw, 14rem) 0 clamp(7rem, 12vw, 11rem); }
+.contact-ticker { position: absolute; top: -1.2rem; left: 0; white-space: nowrap; line-height: 1; font-size: clamp(5rem, 10vw, 11rem); font-weight: 950; letter-spacing: -.07em; color: rgba(242,238,230,.025); animation: ticker 28s linear infinite; }
 @keyframes ticker { to { transform: translateX(-35%); } }
 .contact-layout { position: relative; z-index: 2; display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
 .contact-copy { position: sticky; top: 130px; }
