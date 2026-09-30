@@ -1,0 +1,32 @@
+{
+  "name": "auto-usate-srl-landing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "serve out -l 4173",
+    "preview:php": "php -S 127.0.0.1:8080 -t out",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "check": "npm run typecheck && npm run lint && npm run build",
+    "test": "playwright test",
+    "client:check": "node scripts/check-client-data.mjs",
+    "release:check": "npm run check && npm run client:check"
+  },
+  "dependencies": {
+    "next": "16.2.12",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^22.19.8",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.2.12",
+    "serve": "^14.2.6",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,9 @@
+<svg width="420" height="92" viewBox="0 0 420 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(2 2) scale(1.375)">
+    <rect x=".5" y=".5" width="63" height="63" rx="14" fill="#111214" stroke="#F2EEE6" stroke-opacity=".24" vector-effect="non-scaling-stroke"/>
+    <path d="M10 46 19.4 18h5.2L34 46h-6.2l-1.7-5.5h-8.2L16.2 46H10Zm9.9-11h4.2L22 28.7 19.9 35Z" fill="#F2EEE6" fill-rule="evenodd"/>
+    <path d="M37 18h5.6v19.5a2.9 2.9 0 0 0 5.8 0V18H54v19.5a8.5 8.5 0 0 1-17 0V18Z" fill="#FF5B32"/>
+  </g>
+  <text x="112" y="44" fill="#F2EEE6" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="1.6">AUTO USATE</text>
+  <text x="113" y="66" fill="#FF5B32" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="4.8">GENOVA · SRL</text>
+</svg>
