@@ -83,20 +83,20 @@ button { color: inherit; }
 @keyframes signalPulse { 50% { box-shadow: 0 0 0 8px rgba(255,91,50,0); } }
 .hero-title { margin: 0; font-weight: 900; }
 .hero-word { position: relative; z-index: 1; display: block; overflow: hidden; margin: -.08em 0 0 -.04em; padding: .08em .1em 0 .04em; font-size: min(21vw, 36svh); line-height: .8; letter-spacing: -.085em; }
-.hero-word > span { display: block; animation: wordRise 1.15s .7s cubic-bezier(.19,1,.22,1) both; }
+.hero-word > span { display: block; animation: wordRise 1.15s calc(var(--t) * 1s) cubic-bezier(.19,1,.22,1) both; }
 @keyframes wordRise { from { transform: translate3d(0, 104%, 0); } }
-.hero-accent { position: relative; z-index: 3; display: block; width: max-content; max-width: 100%; margin: .16em 0 0 clamp(0rem, 8vw, 10rem); color: var(--accent); font-family: Georgia, "Times New Roman", serif; font-size: min(4.3vw, 7.4svh); font-style: italic; font-weight: 400; line-height: 1; letter-spacing: -.045em; animation: heroRise 1s 1.1s var(--ease) both; }
+.hero-accent { position: relative; z-index: 3; display: block; width: max-content; max-width: 100%; margin: .16em 0 0 clamp(0rem, 8vw, 10rem); color: var(--accent); font-family: Georgia, "Times New Roman", serif; font-size: min(4.3vw, 7.4svh); font-style: italic; font-weight: 400; line-height: 1; letter-spacing: -.045em; animation: heroRise 1s calc(var(--t) * 1.35s) var(--ease) both; }
 .hero-lower { position: relative; z-index: 3; max-width: 380px; margin-top: clamp(1.4rem, 4svh, 2.8rem); }
-.hero-lower p { margin: 0; color: var(--paper); font-size: clamp(1.05rem, 1.3vw, 1.28rem); font-weight: 600; line-height: 1.45; letter-spacing: -.01em; animation: heroRise .9s 1.4s var(--ease) both; }
+.hero-lower p { margin: 0; color: var(--paper); font-size: clamp(1.05rem, 1.3vw, 1.28rem); font-weight: 600; line-height: 1.45; letter-spacing: -.01em; animation: heroRise .9s calc(var(--t) * 1.6s) var(--ease) both; }
 .hero-lower p span { display: block; color: rgba(242,238,230,.55); font-weight: 400; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; animation: heroRise .9s 1.55s var(--ease) both; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; animation: heroRise .9s calc(var(--t) * 1.75s) var(--ease) both; }
 .hero-actions .button { transition: transform .3s var(--ease), background .25s, border-color .25s, box-shadow .35s var(--ease); }
 .hero-actions .button:active { transform: translateY(0) scale(.97); transition-duration: .08s; }
 .hero-actions .button-primary:hover { box-shadow: 0 16px 38px -14px rgba(255,91,50,.75); }
 .hero-actions .button-ghost { background: rgba(13,14,16,.55); backdrop-filter: blur(8px); }
 .hero-actions .button-ghost:hover { background: rgba(255,91,50,.08); }
-.hero-rail { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding: 1rem 0 1.15rem; border-top: 1px solid var(--line); color: rgba(242,238,230,.46); font-size: .62rem; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; animation: heroFade 1s 1.9s both; }
-.hero-rail::before { content: ""; position: absolute; top: -1px; left: 0; width: 7rem; height: 1px; background: var(--accent); transform-origin: left; animation: railDraw 1s 2s var(--ease) both; }
+.hero-rail { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding: 1rem 0 1.15rem; border-top: 1px solid var(--line); color: rgba(242,238,230,.46); font-size: .62rem; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; animation: heroFade 1s calc(var(--t) * 2.1s) both; }
+.hero-rail::before { content: ""; position: absolute; top: -1px; left: 0; width: 7rem; height: 1px; background: var(--accent); transform-origin: left; animation: railDraw 1s calc(var(--t) * 2.2s) var(--ease) both; }
 @keyframes railDraw { from { transform: scaleX(0); } }
 .hero-rail p { display: flex; flex-wrap: wrap; row-gap: .35rem; margin: 0; }
 .hero-rail p span:first-child { color: var(--paper); }
@@ -108,42 +108,69 @@ button { color: inherit; }
 @keyframes heroRise { from { opacity: 0; transform: translate3d(0, 26px, 0); } }
 @keyframes heroFade { from { opacity: 0; } }
 
-/* Stage: the studio lives around the car so it tracks it at every breakpoint. */
+/* Stage: "the car builds itself". --t scales timing, --d scales part travel per breakpoint. */
+.hero-section { --t: 1; --d: 1; }
 .hero-stage { position: absolute; right: max(1.5vw, calc((100vw - var(--max)) / 2 - 3vw)); bottom: calc(4.4rem + 4svh); width: min(72vw, 128svh, 1180px); aspect-ratio: 2400 / 973; --px: 0; --py: 0; --sy: 0; }
-.hero-stage > div { position: absolute; }
+.hero-stage-inner { position: absolute; inset: 0; }
+.hero-env { position: absolute; inset: 0; opacity: calc(1 - var(--sy) * .75); }
+.hero-env > div { position: absolute; }
 .hero-env-wall { z-index: 0; inset: -75% -30% -30% -48%; background: radial-gradient(ellipse 46% 44% at 57% 52%, rgba(242,238,230,.026), rgba(242,238,230,.008) 45%, transparent 72%); transform: translate3d(calc(var(--px) * 22px), calc(var(--py) * 12px), 0); transition: transform 1.6s var(--ease); animation: heroFade 1.6s both; }
-.hero-env-arc { z-index: 0; left: 8%; right: 2%; top: -34%; height: 52%; border-radius: 50%; border-top: 1px solid rgba(242,238,230,.11); mask-image: linear-gradient(90deg, transparent, #000 28%, #000 72%, transparent); animation: arcIn 1.6s .05s var(--ease) both; }
+.hero-env-arc { z-index: 0; left: 8%; right: 2%; top: -34%; height: 52%; border-radius: 50%; border-top: 1px solid rgba(242,238,230,.11); mask-image: linear-gradient(90deg, transparent, #000 28%, #000 72%, transparent); animation: arcIn 1.4s .05s var(--ease) both; }
 @keyframes arcIn { from { opacity: 0; transform: scaleX(.86); } }
-.hero-env-beam { z-index: 0; left: 10%; right: 4%; top: -60%; height: 128%; background: radial-gradient(ellipse 36% 100% at 52% 0, rgba(242,238,230,.02), rgba(242,238,230,.005) 55%, transparent 80%); mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 50%, transparent 95%); animation: heroFade 1.8s .1s both, beamBreath 10s 2.4s ease-in-out infinite alternate; }
-@keyframes beamBreath { to { opacity: .7; } }
+.hero-env-beam { z-index: 0; left: 10%; right: 4%; top: -60%; height: 128%; background: radial-gradient(ellipse 36% 100% at 52% 0, rgba(242,238,230,.02), rgba(242,238,230,.005) 55%, transparent 80%); mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 50%, transparent 95%); transform: translate3d(calc(var(--px) * 40px), 0, 0); transition: transform 1.6s var(--ease); animation: heroFade 1.4s both; }
 .hero-env-floor { z-index: 0; left: -40%; right: -30%; top: 69%; height: 55%; background: linear-gradient(to bottom, rgba(242,238,230,.01), transparent 75%); mask-image: radial-gradient(ellipse 52% 100% at 56% 0, #000 25%, transparent 72%); animation: heroFade 1.4s .3s both; }
 .hero-env-floor span { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(242,238,230,.07) 28%, rgba(242,238,230,.12) 56%, rgba(242,238,230,.05) 82%, transparent); transform: scaleX(0); transform-origin: 56% 50%; animation: floorDraw 1.6s .4s var(--ease) forwards; }
 @keyframes floorDraw { to { transform: scaleX(1); } }
 .hero-env-floor::before { content: ""; position: absolute; left: 25%; right: 19%; top: -10px; height: 22px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(0,0,0,.5), transparent 70%); }
-.hero-car-scroll { z-index: 2; inset: 0; transform: translate3d(0, calc(var(--sy) * -7%), 0) scale(calc(1 + var(--sy) * .03)); }
-.hero-car-parallax, .hero-car-drift, .hero-car-enter { position: absolute; inset: 0; }
-.hero-car-parallax { transform: translate3d(calc(var(--px) * -16px), calc(var(--py) * -8px), 0); transition: transform 1.4s var(--ease); }
-.hero-car-drift { animation: carDrift 18s 3s ease-in-out infinite alternate; }
-@keyframes carDrift { to { transform: translate3d(-.8%, -.25%, 0) scale(1.008); } }
-.hero-car-enter { animation: carReveal 1.8s .25s var(--ease) both; }
-@keyframes carReveal { from { opacity: 0; transform: translate3d(5%, 0, 0) scale(.975); } }
-.hero-car-enter picture, .hero-car-img { display: block; width: 100%; height: 100%; }
-.hero-car-img { mask-image: linear-gradient(to bottom, #000 70%, rgba(0,0,0,.4) 78%, transparent 100%); }
-.hero-car-sweep { display: none; position: absolute; inset: 0; overflow: hidden; mix-blend-mode: screen; }
-@supports (mask-mode: luminance) {
-  .hero-car-sweep { display: block; mask-image: url("/hero/car-cut-900.webp"); mask-size: 100% 100%; mask-mode: luminance; }
-}
-.hero-car-sweep span { position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(260deg, transparent 18%, rgba(255,120,70,.4) 42%, rgba(255,240,225,.95) 52%, rgba(255,150,100,.45) 62%, transparent 82%); opacity: 0; animation: carSweep 1.5s 1.05s cubic-bezier(.45,.05,.2,1) forwards; }
-@keyframes carSweep { 0% { transform: translate3d(260%, 0, 0); opacity: 0; } 12%, 82% { opacity: 1; } 100% { transform: translate3d(-110%, 0, 0); opacity: 0; } }
-.hero-car-headlight, .hero-car-taillight { position: absolute; translate: -50% -50%; mix-blend-mode: screen; opacity: 0; }
-.hero-car-headlight { left: 5.8%; top: 36.8%; width: 16%; aspect-ratio: 3 / 1; background: radial-gradient(ellipse 42% 42% at 50% 50%, rgba(255,246,235,.9), rgba(255,170,120,.4) 22%, rgba(255,91,50,.1) 50%, transparent 72%); animation: lightOn 1s 2.1s ease-out forwards; }
-.hero-car-headlight span { position: absolute; left: -18%; right: -25%; top: 47%; height: 6%; background: linear-gradient(90deg, transparent, rgba(255,190,160,.45) 45%, rgba(255,250,242,.9) 58%, rgba(255,190,160,.35) 70%, transparent); animation: flareBreath 6s 3.2s ease-in-out infinite alternate; }
-.hero-car-taillight { left: 95.6%; top: 26.6%; width: 6%; aspect-ratio: 2 / 1; background: radial-gradient(ellipse 45% 45% at 50% 50%, rgba(255,70,45,.55), rgba(255,50,30,.12) 50%, transparent 72%); animation: lightOn 1s 1.9s ease-out forwards; }
-@keyframes lightOn { 0% { opacity: 0; } 35% { opacity: 1; } 50% { opacity: .65; } 100% { opacity: 1; } }
-@keyframes flareBreath { to { opacity: .55; } }
 
-/* Tablet: whole car gets its own full-bleed stage under the CTAs. */
+/* 1 · chassis drawing */
+.hero-blueprint { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; animation: blueprintOut .5s calc(var(--t) * 1.5s) ease forwards; }
+.hero-blueprint * { vector-effect: non-scaling-stroke; stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw calc(var(--t) * .8s) var(--ease) forwards; }
+.hero-blueprint-ground { stroke: rgba(242,238,230,.22); animation-delay: calc(var(--t) * .05s); }
+.hero-blueprint-wheel { stroke: var(--accent); animation-delay: calc(var(--t) * .18s); }
+.hero-blueprint-roof { stroke: rgba(242,238,230,.55); animation-delay: calc(var(--t) * .3s); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes blueprintOut { to { opacity: 0; } }
+
+/* 2 · parts assemble (same image, sliced into panels) */
+.hero-car-scroll { position: absolute; z-index: 2; inset: 0; transform: translate3d(calc(var(--sy) * -3%), calc(var(--sy) * -5%), 0); }
+.hero-car-assembly, .hero-car-final, .hero-part { position: absolute; inset: 0; }
+.hero-car-assembly { filter: grayscale(1) brightness(1.4) contrast(.9); animation: assemblyOut .35s calc(var(--t) * 1.75s) ease forwards; }
+@keyframes assemblyOut { to { opacity: 0; } }
+.hero-part { animation: partIn calc(var(--t) * .6s) cubic-bezier(.22, 1.25, .36, 1) both; }
+.hero-part-wheel-front, .hero-part-wheel-rear { animation-name: wheelRoll; animation-duration: calc(var(--t) * .85s); animation-timing-function: cubic-bezier(.2, .8, .25, 1); animation-delay: calc(var(--t) * .25s); }
+.hero-part-wheel-front { clip-path: ellipse(7.2% 17.6% at 17.5% 54.4%); transform-origin: 17.5% 54.4%; }
+.hero-part-wheel-rear { clip-path: ellipse(7.2% 17.6% at 78.8% 55%); transform-origin: 78.8% 55%; animation-delay: calc(var(--t) * .32s); }
+.hero-part-lower { clip-path: polygon(0 46%, 100% 46%, 100% 100%, 0 100%); --from: translate3d(0, calc(var(--d) * 16%), 0); animation-delay: calc(var(--t) * .7s); }
+.hero-part-front { clip-path: polygon(0 0, 36% 0, 27% 46%, 0 46%); --from: translate3d(calc(var(--d) * -10%), calc(var(--d) * -12%), 0) rotate(calc(var(--d) * -3deg)); animation-delay: calc(var(--t) * .85s); }
+.hero-part-cabin { clip-path: polygon(36% 0, 74% 0, 68% 46%, 27% 46%); --from: translate3d(0, calc(var(--d) * -28%), 0); animation-delay: calc(var(--t) * .93s); }
+.hero-part-rear { clip-path: polygon(74% 0, 100% 0, 100% 46%, 68% 46%); --from: translate3d(calc(var(--d) * 10%), calc(var(--d) * -12%), 0) rotate(calc(var(--d) * 3deg)); animation-delay: calc(var(--t) * 1.01s); }
+@keyframes partIn { from { opacity: 0; transform: var(--from); } 40% { opacity: 1; } }
+@keyframes wheelRoll { from { opacity: 0; transform: translate3d(calc(var(--d) * 16%), 0, 0) rotate(calc(var(--d) * 130deg)); } 25% { opacity: 1; } }
+
+/* 3 · finish resolves, lights ignite, suspension settles */
+.hero-car-final { animation: heroFade calc(var(--t) * .5s) calc(var(--t) * 1.45s) ease both, carSettle .6s calc(var(--t) * 1.95s) cubic-bezier(.3, .7, .3, 1) both; }
+@keyframes carSettle { 40% { transform: translate3d(0, .8%, 0); } 75% { transform: translate3d(0, -.2%, 0); } }
+.hero-car-final picture, .hero-car-img { display: block; width: 100%; height: 100%; }
+.hero-car-img { mask-image: linear-gradient(to bottom, #000 70%, rgba(0,0,0,.4) 78%, transparent 100%); }
+.hero-car-sweep, .hero-car-spec { display: none; position: absolute; inset: 0; overflow: hidden; mix-blend-mode: screen; }
+@supports (mask-mode: luminance) {
+  .hero-car-sweep, .hero-car-spec { display: block; mask-image: url("/hero/car-cut-900.webp"); mask-size: 100% 100%; mask-mode: luminance; }
+}
+.hero-car-sweep span { position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(260deg, transparent 18%, rgba(255,120,70,.4) 42%, rgba(255,240,225,.95) 52%, rgba(255,150,100,.45) 62%, transparent 82%); opacity: 0; animation: carSweep 1.3s calc(var(--t) * 1.55s) cubic-bezier(.45,.05,.2,1) forwards; }
+@keyframes carSweep { 0% { transform: translate3d(260%, 0, 0); opacity: 0; } 12%, 82% { opacity: 1; } 100% { transform: translate3d(-110%, 0, 0); opacity: 0; } }
+/* Settled state: the pointer moves the studio key light across the paint, not the car. */
+.hero-car-spec { animation: heroFade 1s calc(var(--t) * 2.6s) both; }
+.hero-car-spec span { position: absolute; top: 0; bottom: 0; left: 37%; width: 26%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.42) 50%, transparent); transform: translate3d(calc(var(--px) * 190%), 0, 0); transition: transform 1.2s var(--ease); }
+.hero-car-headlight, .hero-car-taillight { position: absolute; translate: -50% -50%; mix-blend-mode: screen; opacity: 0; }
+.hero-car-headlight { left: 5.8%; top: 36.8%; width: 16%; aspect-ratio: 3 / 1; background: radial-gradient(ellipse 42% 42% at 50% 50%, rgba(255,246,235,.9), rgba(255,170,120,.4) 22%, rgba(255,91,50,.1) 50%, transparent 72%); animation: lightOn .9s calc(var(--t) * 1.95s) ease-out forwards; }
+.hero-car-headlight span { position: absolute; left: -18%; right: -25%; top: 47%; height: 6%; background: linear-gradient(90deg, transparent, rgba(255,190,160,.45) 45%, rgba(255,250,242,.9) 58%, rgba(255,190,160,.35) 70%, transparent); opacity: .8; }
+.hero-car-taillight { left: 95.6%; top: 26.6%; width: 6%; aspect-ratio: 2 / 1; background: radial-gradient(ellipse 45% 45% at 50% 50%, rgba(255,70,45,.55), rgba(255,50,30,.12) 50%, transparent 72%); animation: lightOn .9s calc(var(--t) * 1.85s) ease-out forwards; }
+@keyframes lightOn { 0% { opacity: 0; } 35% { opacity: 1; } 50% { opacity: .65; } 100% { opacity: 1; } }
+
+/* Tablet: whole car on its own stage under the CTAs; shorter travel. */
 @media (max-width: 1120px) {
+  .hero-section { --t: .9; --d: .6; }
   .hero-layout { min-height: 0; padding-top: 124px; }
   .hero-copy { flex: none; }
   .hero-word { font-size: min(24vw, 15rem); }
@@ -156,18 +183,23 @@ button { color: inherit; }
   .hero-rail { margin-top: 0; }
 }
 
-/* Phone: front three-quarter close-up with a deliberate rear bleed. */
+/* Phone: a clipped window onto a front close-up; copy is readable immediately. */
 @media (max-width: 600px) {
+  .hero-section { --t: .7; --d: .45; }
   .hero-layout { padding-top: 104px; }
-  .hero-kicker { margin-bottom: 1.3rem; }
+  .hero-kicker { margin-bottom: 1.3rem; animation-delay: 0s; }
   .hero-word { font-size: 29vw; }
-  .hero-accent { font-size: 8.6vw; width: auto; }
-  .hero-lower p { font-size: 1.02rem; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-stage { width: 172vw; margin: 3.25rem 0 -4% calc(4vw - var(--pad)); }
+  .hero-word > span { animation-delay: .1s; }
+  .hero-accent { font-size: 8.6vw; width: auto; animation-delay: .25s; }
+  .hero-lower p { font-size: 1.02rem; animation-delay: .4s; }
+  .hero-actions { flex-direction: column; align-items: stretch; animation-delay: .5s; }
+  .hero-stage { width: calc(100% + var(--pad) * 2); height: 64vw; aspect-ratio: auto; margin: 2.75rem calc(var(--pad) * -1) -2%; overflow: hidden; }
+  .hero-stage-inner { inset: 0 auto auto 3vw; width: 172vw; aspect-ratio: 2400 / 973; }
+  .hero-blueprint-wheel:last-of-type { display: none; }
   .hero-car-img { mask-image: linear-gradient(to bottom, #000 64%, transparent 88%); }
   .hero-env-floor { left: -5%; right: 20%; }
-  .hero-rail { font-size: .56rem; letter-spacing: .14em; }
+  .hero-rail { font-size: .56rem; letter-spacing: .14em; animation-delay: .7s; }
+  .hero-rail::before { animation-delay: .8s; }
   .hero-rail p { gap: .45rem 1.1rem; }
   .hero-rail p span + span::before { content: none; }
   .hero-rail p span::before { content: ""; display: inline-block; width: 4px; height: 4px; margin-right: .55em; border-radius: 50%; background: var(--accent); vertical-align: middle; }
@@ -627,7 +659,8 @@ button { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-  .hero-car-drift, .hero-env-beam, .process-rail-scan, .types-note svg, .types-note svg path { animation: none !important; }
+  .process-rail-scan, .types-note svg, .types-note svg path { animation: none !important; }
+  .hero-car-assembly, .hero-blueprint { display: none; }
   .finder-status-dot::after { animation: none !important; opacity: 0; }
   .process-rail-scan { opacity: 0; }
 }
