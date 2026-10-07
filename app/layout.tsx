@@ -6,7 +6,7 @@ import { company } from "@/lib/company";
 export const metadata: Metadata = {
   metadataBase: new URL(company.siteUrl),
   title: { default: "Auto Usate SRL | Auto usate a Genova", template: "%s | Auto Usate SRL" },
-  description: "Auto usate a Genova. Raccontaci cosa cerchi, verifica la disponibilità e contatta Auto Usate SRL in modo diretto.",
+  description: "Auto usate disponibili a Genova. Guarda le auto in vetrina e contatta Auto Usate SRL per telefono o dal modulo.",
   applicationName: "Auto Usate SRL",
   alternates: { canonical: "/" },
   icons: { icon: "/favicon.svg" },
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     locale: "it_IT",
     siteName: "Auto Usate SRL",
     title: "Auto Usate SRL | Auto usate a Genova",
-    description: "Un modo più semplice e diretto per cercare la tua prossima auto usata a Genova.",
+    description: "Le auto usate disponibili a Genova, con i dati essenziali e un contatto diretto.",
     url: company.siteUrl,
   },
 };

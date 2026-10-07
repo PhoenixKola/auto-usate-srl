@@ -21,7 +21,7 @@ Offline sale of used vehicles. The website is lead-generation and information on
 
 ## Truthfulness rules
 - Never invent specific stock, prices, mileage, reviews, company age, warranties or inspection claims.
-- General category visuals are illustrative, not inventory.
+- The showroom lists the actual stock from `data/vehicles.ts`; demo records are labelled as such until replaced.
 - Missing legal/company data must remain explicitly marked as missing until supplied.
 - The contact form must not claim successful delivery unless PHP `mail()` returns success.
 

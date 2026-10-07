@@ -119,7 +119,8 @@ Therefore it ships without a consent banner in this configuration. If tracking o
 ## Project structure
 
 - `app/page.tsx` — one-page commercial experience
-- `components/` — header, finder, trade-in, contact and automotive visual components
+- `components/` — header, hero, showroom, contact and shared UI components
+- `data/vehicles.ts` — the stock shown on the homepage (currently demo records)
 - `app/privacy/`, `cookie-policy/`, `note-legali/`, `imprint/`, `garanzia-legale/`, `disclaimer/` — legal/support routes
 - `public/api/contact.php` — Hetzner PHP mail endpoint
 - `public/.htaccess` — 404, caching and basic security headers
@@ -130,4 +131,4 @@ Therefore it ships without a consent banner in this configuration. If tracking o
 
 The site deliberately avoids a generic dealership-template look. Its visual thesis is an illuminated automotive showroom: signal orange, graphite/paper surfaces, oversized editorial typography, custom vector vehicles, lane/headlight motion and varied section composition.
 
-It also deliberately avoids fake vehicle inventory. Until real stock is provided, category visuals are clearly generic and all availability is handled as an enquiry.
+It shows the client's small fixed stock from `data/vehicles.ts`. Until real stock is provided, the three cars there are clearly labelled demo examples and all availability is handled as an enquiry.

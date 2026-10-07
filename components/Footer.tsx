@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { company, hasClientValue } from "@/lib/company";
+import { company, hasClientValue, phoneContact } from "@/lib/company";
 import { BrandLockup } from "@/components/Brand";
 import { SectionLink } from "@/components/SectionLink";
 
@@ -10,13 +10,13 @@ export function Footer() {
       <div className="container footer-grid">
         <div>
           <SectionLink section="top" className="footer-logo" aria-label="Auto Usate SRL, torna all'inizio"><BrandLockup /></SectionLink>
-          <p className="footer-copy">Auto usate a Genova. Ricerca semplice, contatto diretto e disponibilità da verificare sul veicolo reale.</p>
+          <p className="footer-copy">Auto usate a Genova. Le auto in vetrina, i dati essenziali e un contatto diretto, per telefono o dal modulo.</p>
         </div>
         <div>
           <p className="footer-label">Naviga</p>
           <SectionLink section="auto">Le auto</SectionLink>
           <SectionLink section="come-funziona">Come funziona</SectionLink>
-          <SectionLink section="permuta">Permuta</SectionLink>
+          <SectionLink section="info">Info</SectionLink>
           <SectionLink section="contatti">Contatti</SectionLink>
         </div>
         <div>
@@ -31,7 +31,7 @@ export function Footer() {
           <p className="footer-label">Sede</p>
           <span>{company.city} ({company.province}), {company.country}</span>
           {hasClientValue(company.registeredOffice) ? <span>{company.registeredOffice}</span> : null}
-          {company.phone ? <a href={`tel:${company.phone.replace(/\s/g, "")}`}>{company.phone}</a> : null}
+          {phoneContact.ready ? <a href={phoneContact.href}>{phoneContact.display}</a> : null}
         </div>
       </div>
       <div className="container footer-bottom">

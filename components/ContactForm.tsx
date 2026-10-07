@@ -13,14 +13,16 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
   const [fields, setFields] = useState<Fields>(empty);
   const [state, setState] = useState<State>("idle");
   const [notice, setNotice] = useState("");
+  const [vehicle, setVehicle] = useState("");
   const startedAt = useRef<number>(0);
 
   useEffect(() => {
     startedAt.current = Date.now();
 
     const handler = (event: Event) => {
-      const custom = event as CustomEvent<{message?: string}>;
+      const custom = event as CustomEvent<{message?: string; vehicle?: string}>;
       if (custom.detail?.message) setFields(current => ({ ...current, message: custom.detail.message ?? current.message }));
+      setVehicle(custom.detail?.vehicle ?? "");
     };
     window.addEventListener("auto-usate:prefill", handler as EventListener);
     return () => window.removeEventListener("auto-usate:prefill", handler as EventListener);
@@ -46,13 +48,16 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       const response = await fetch("/api/contact.php", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ ...fields, startedAt: startedAt.current }),
+        body: JSON.stringify({ ...fields, message: vehicle && !fields.message.includes(vehicle) ? `Veicolo: ${vehicle}
+
+${fields.message}` : fields.message, startedAt: startedAt.current }),
       });
       const data = await response.json().catch(() => null) as {message?: string} | null;
       if (!response.ok) throw new Error(data?.message || "Invio non riuscito.");
       setState("success");
       setNotice(data?.message || "Messaggio inviato. Ti ricontatteremo appena possibile.");
       setFields(empty);
+      setVehicle("");
       startedAt.current = Date.now();
     } catch (error) {
       setState("error");
@@ -62,12 +67,18 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <form className={`contact-form ${compact ? "contact-form-compact" : ""}`} onSubmit={submit} noValidate>
+    <form id="modulo-contatto" className={`contact-form ${compact ? "contact-form-compact" : ""}`} onSubmit={submit} noValidate>
+      {vehicle ? (
+        <div className="contact-vehicle" role="status">
+          <span>Richiesta per</span><strong>{vehicle}</strong>
+          <button type="button" onClick={() => setVehicle("")} aria-label={`Rimuovi ${vehicle} dalla richiesta`}><Icon name="close" /></button>
+        </div>
+      ) : null}
       <div className="contact-form-grid">
         <label><span>Nome e cognome *</span><input value={fields.name} onChange={e => update("name", e.target.value)} autoComplete="name" maxLength={120} placeholder="Mario Rossi" required/></label>
         <label><span>Email *</span><input type="email" value={fields.email} onChange={e => update("email", e.target.value)} autoComplete="email" maxLength={180} placeholder="mario@email.it" required/></label>
         <label><span>Telefono</span><input type="tel" value={fields.phone} onChange={e => update("phone", e.target.value)} autoComplete="tel" maxLength={40} placeholder="+39 ..."/></label>
-        <label className="contact-message"><span>Come possiamo aiutarti? *</span><textarea value={fields.message} onChange={e => update("message", e.target.value)} rows={compact ? 4 : 5} maxLength={5000} placeholder="Raccontaci che auto cerchi o quale usato vuoi valutare." required/></label>
+        <label className="contact-message"><span>Come possiamo aiutarti? *</span><textarea value={fields.message} onChange={e => update("message", e.target.value)} rows={compact ? 4 : 5} maxLength={5000} placeholder="Scrivi qui la tua domanda sull'auto che ti interessa." required/></label>
       </div>
       <label className="honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={fields.website} onChange={e => update("website", e.target.value)}/></label>
       <label className="consent-row">

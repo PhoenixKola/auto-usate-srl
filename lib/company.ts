@@ -34,10 +34,18 @@ export const company: CompanyConfig = {
   taxCode: "DA COMPLETARE",
   rea: "DA COMPLETARE",
   shareCapital: "DA COMPLETARE",
-  phone: "",
+  // The only place the phone number lives. Every "Chiama" button reads it through `phoneContact`.
+  phone: "DA COMPLETARE",
   whatsapp: "",
   openingHours: "",
 };
 
 export const hasClientValue = (value: string) =>
   Boolean(value && value !== "DA COMPLETARE");
+
+const phoneDigits = company.phone.replace(/[^\d+]/g, "");
+
+// Until a real number is set, buttons show a preview number and never create a dialable tel: link.
+export const phoneContact = hasClientValue(company.phone) && phoneDigits.replace(/\D/g, "").length >= 6
+  ? { ready: true as const, display: company.phone, href: `tel:${phoneDigits}` }
+  : { ready: false as const, display: "+39 010 XXX XXXX", href: null };

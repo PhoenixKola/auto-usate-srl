@@ -9,26 +9,19 @@
 - Mobile: typography leads; car becomes an atmospheric lower-stage asset.
 - Reduced motion: fully readable static composition.
 
-### 2. Car Finder — "Ask the right three questions"
-- Why: transforms a vague landing page into a useful conversion surface.
-- Metaphor: a dealer narrowing the search at the desk.
-- Interaction: branded chips resolve into one compact enquiry summary.
-- Mobile: questions stack; result becomes a full-width action.
+### 2. Showroom — "In vetrina adesso"
+- Why: the business sells a small fixed stock; the site shows exactly those cars.
+- Metaphor: a curated showroom, not a marketplace.
+- Interaction: a featured car stage, then alternating editorial rows with photo, price and key facts. "Chiedi informazioni" pre-fills the contact form with the chosen car; "Chiama" dials once a real number is configured. Rows stack vertically on mobile.
 
-### 3. Type Selector — "Il tipo giusto"
-- Why: helps choose a vehicle type without inventing stock or showing fake cars.
-- Metaphor: an editorial decision list with abstract proportion drawings (length × height).
-- Interaction: the active row (hover/focus/tap) gets an accent tint and redraws the drawing; "Chiedi disponibilità" pre-fills the contact form. Rows stack vertically on mobile, with no horizontal scrolling.
+### 3. Phone + form — two equal paths
+- Why: buyers of a specific used car often want to call.
+- Interaction: hero "Chiamaci", per-car "Chiama", and a two-path start to the contact section. No dialable link until a real number is set.
 
-### 4. Trade-in — "One in, one out"
-- Why: second core conversion route.
-- Metaphor: a handover sheet rather than an automated valuation gimmick.
-- Interaction: four quick inputs become a prefilled contact enquiry.
-
-### 5. Contact finale — "Direct line"
+### 4. Contact finale — "Direct line"
 - Why: closes the entire page with a concrete action.
 - Metaphor: an enquiry desk.
-- Interaction: prefill from prior sections, custom success/error states, PHP delivery.
+- Interaction: vehicle context from the showroom (shown as a "Richiesta per" chip and kept in the message), custom success/error states, PHP delivery.
 
 ## 4 FLAMES
 - Process rail

@@ -4,20 +4,25 @@ test("homepage renders signature sections", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Usato");
   await expect(page.locator("#auto")).toBeVisible();
-  await expect(page.locator("#permuta")).toBeVisible();
+  await expect(page.locator(".vehicle")).not.toHaveCount(0);
   await expect(page.locator("#contatti")).toBeVisible();
   await expect(page.getByText("Realizzato con")).toBeVisible();
 });
 
-test("finder prefills contact message", async ({ page }) => {
+test("vehicle enquiry keeps the selected car", async ({ page }) => {
   await page.goto("/");
-  await page.locator("#auto").scrollIntoViewIfNeeded();
-  await page.getByRole("button", { name: "SUV / Crossover" }).click();
-  await page.getByRole("button", { name: "20–30k" }).click();
-  await page.getByRole("button", { name: "Ibrida" }).click();
-  await page.locator("#auto").getByRole("button", { name: "Chiedi disponibilità" }).click();
-  await expect(page.locator("#contatti textarea")).toContainText("");
-  await expect(page.locator("#contatti textarea")).toHaveValue(/SUV \/ Crossover.*20–30k.*Ibrida/);
+  const first = page.locator(".vehicle").first();
+  const name = (await first.locator("h3").innerText()).replace(/\s+/g, " ").trim();
+  await first.getByRole("button", { name: /Chiedi informazioni/ }).click();
+  await expect(page.locator(".contact-vehicle strong")).toHaveText(name);
+  await expect(page.locator("#contatti textarea")).toHaveValue(new RegExp(name));
+});
+
+test("phone links only ever dial a real number", async ({ page }) => {
+  await page.goto("/");
+  for (const href of await page.locator('a[href^="tel:"]').evaluateAll(links => links.map(link => link.getAttribute("href")))) {
+    expect(href).toMatch(/^tel:\+?\d{6,}$/);
+  }
 });
 
 test("contact validates required fields", async ({ page }) => {

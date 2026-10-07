@@ -9,7 +9,7 @@ import { SectionLink } from "@/components/SectionLink";
 const nav = [
   ["#auto", "Le auto"],
   ["#come-funziona", "Come funziona"],
-  ["#permuta", "Permuta"],
+  ["#info", "Info"],
   ["#contatti", "Contatti"],
 ] as const;
 

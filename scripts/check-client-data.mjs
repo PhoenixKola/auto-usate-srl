@@ -2,10 +2,13 @@ import fs from "node:fs";
 
 const company = fs.readFileSync(new URL("../lib/company.ts", import.meta.url), "utf8");
 const php = fs.readFileSync(new URL("../public/api/contact.php", import.meta.url), "utf8");
+const vehicles = fs.readFileSync(new URL("../data/vehicles.ts", import.meta.url), "utf8");
 
 const problems = [];
+if (/phone:\s*"(DA COMPLETARE)?"/.test(company)) problems.push("lib/company.ts: manca il numero di telefono reale (phone)");
 if (company.includes('"DA COMPLETARE"')) problems.push("lib/company.ts contiene ancora dati societari DA COMPLETARE");
 if (company.includes("domainConfirmed: false")) problems.push("conferma il dominio in lib/company.ts e imposta domainConfirmed: true");
+if (/demoInventory\s*=\s*true/.test(vehicles)) problems.push("data/vehicles.ts contiene ancora le auto dimostrative: inserisci lo stock reale e imposta demoInventory = false");
 if (php.includes("@esempio.invalid")) problems.push("public/api/contact.php contiene ancora indirizzi email di configurazione");
 
 if (problems.length) {
