@@ -30,6 +30,11 @@ button { color: inherit; }
 
 /* Header */
 .site-header { position: fixed; inset: 0 0 auto; z-index: 1000; height: 92px; transition: background .35s, border-color .35s, height .35s, backdrop-filter .35s; border-bottom: 1px solid transparent; }
+/* Homepage only: the navbar arrives after the car has assembled. */
+.site-header-intro { animation: headerIn .8s 2.6s var(--ease) backwards; }
+@keyframes headerIn { from { opacity: 0; transform: translate3d(0, -100%, 0); } }
+@media (max-width: 1120px) { .site-header-intro { animation-delay: 2.4s; } }
+@media (max-width: 600px) { .site-header-intro { animation-delay: 1.6s; } }
 .site-header-scrolled { height: 76px; background: rgba(13,14,16,.78); border-bottom-color: rgba(242,238,230,.09); backdrop-filter: blur(18px); }
 .site-header-inner { height: 100%; width: min(calc(100% - (var(--pad) * 2)), var(--max)); margin: auto; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2.2rem; }
 .brand-lockup { display: inline-flex; position: relative; z-index: 3; }

@@ -40,7 +40,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}>
+    <header className={`site-header ${pathname === "/" ? "site-header-intro" : ""} ${scrolled ? "site-header-scrolled" : ""}`}>
       <div className="site-header-inner">
         <SectionLink section="top" className="brand-lockup" aria-label="Auto Usate SRL, torna all'inizio">
           <BrandLockup />
